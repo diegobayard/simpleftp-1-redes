@@ -189,6 +189,33 @@ int main (int argc, char *argv[]) {
 
     // arguments checking
 
+    int i, cont_ip, cont_puerto;
+
+	if(argc!=3){	//se comprueba si se recibe la cantidad de argumentos indicados
+	   printf("Ingrese la direccion IP y puerto del servidor\n");
+	   exit(1);
+	}
+	else{
+	   for(i = 0; i < strlen(argv[1]);i++){	//se toma el primer argumento recibido y analiza caracter por caracter si es un numero o punto
+	   	cont_ip = argv[1][i]-48;	//resta 48 para convertir el caracter en numero
+	   	if((cont_ip < 0 || cont_ip >9) && (cont_ip != -2)){	//-2 es el resultado de restar 48 al codigo ascii del punto (.)
+	   	   printf("IP ingresada no valida\n");
+            	   exit(1);
+               	}
+	   }
+	}
+	   for(i = 0; i < strlen(argv[2]);i++){ //se toma el segundo argumento y analiza caracter por caracter si es un numero o no
+	       cont_puerto = argv[2][i]-48;
+	       if(cont_puerto < 0 || cont_puerto >9){	
+	          printf("Puerto ingresado no valido\n");
+            	  exit(1);
+               }
+	   }
+	   if ((atoi(argv[2])<0)||(atoi(argv[2])>FINPUERTO)){	//se analiza si el puerto esta dentro del rango adecuado (0-65535)
+		printf("Ingrese un puerto valido\n");
+		exit(1);
+	   }
+    
     // create socket and check for errors
     
     // set socket data    
