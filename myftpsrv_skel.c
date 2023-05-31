@@ -206,11 +206,25 @@ void operate(int sd) {
 int main (int argc, char *argv[]) {
 
     // arguments checking
+    int i, cont_puerto;
+    
     if (argc < 2) {
         errx(1, "Port expected as argument");
     } else if (argc > 2) {
         errx(1, "Too many arguments");
-    }
+    }else{
+	   for(i = 0; i < strlen(argv[1]);i++){	//se toma el primer argumento recibido y analiza caracter por caracter si es un numero o no
+	       cont_puerto = argv[1][i]-48;
+	       if(cont_puerto < 0 || cont_puerto >9){
+	          printf("Puerto ingresado no valido\n");
+              exit(1);
+           }
+	   }
+	}
+        if ((atoi(argv[1])<0)||(atoi(argv[1])>FINPUERTO)){	//se analiza si el puerto esta dentro del rango adecuado (0-65535)
+		printf("Ingrese un puerto valido\n");
+		exit(1);
+	}
 
     // reserve sockets and variables space
     int master_sd, slave_sd;
